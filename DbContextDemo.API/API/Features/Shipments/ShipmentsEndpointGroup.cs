@@ -4,7 +4,7 @@ public static class ShipmentsEndpointGroup
 {
     public static RouteGroupBuilder MapShipmentsEndpointGroup(this RouteGroupBuilder builder)
     {
-        builder.MapGroup("/shipments")
+        var shipments  = builder.MapGroup("/shipments")
             .WithTags("Shipments")
             .WithOpenApi();
         return builder;

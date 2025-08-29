@@ -1,4 +1,4 @@
-﻿using DbContextDemo.Persistance.Models;
+﻿using DbContextDemo.API.Persistance.Models.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DbContextDemo.Persistance;
@@ -6,6 +6,12 @@ namespace DbContextDemo.Persistance;
 public class AppDbContext : DbContext
 {
     private readonly ILogger<AppDbContext> _logger;
+
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+       : base(options)
+    {
+        // no logger available at design-time
+    }
 
     public AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbContext> logger)
         : base(options)
@@ -26,8 +32,23 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<OrderItem>();
         modelBuilder.Entity<Product>();
         modelBuilder.Entity<Customer>();
-        modelBuilder.Entity<Payment>();
+        modelBuilder.Entity<Invoice>();
         modelBuilder.Entity<Shipment>();
         modelBuilder.Entity<Address>();
+
+        // apply to every entity that inherits BaseEntity
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+            {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property(nameof(BaseEntity.Id))
+                    .ValueGeneratedNever();
+            }
+        }
+
+        base.OnModelCreating(modelBuilder);
+
     }
+
 }

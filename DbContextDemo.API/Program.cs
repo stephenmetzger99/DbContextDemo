@@ -1,19 +1,16 @@
+using DbContextDemo.API.API.Endpoints.Addresses;
+using DbContextDemo.API.API.Endpoints.Customers;
+using DbContextDemo.API.API.Endpoints.Orders;
+using DbContextDemo.API.API.Endpoints.Payments;
+using DbContextDemo.API.API.Endpoints.Products;
+using DbContextDemo.API.API.Endpoints.Shipments;
+using DbContextDemo.API.API.Services;
 using DbContextDemo.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore.Design;
-using DbContextDemo.API.API.Endpoints.Products;
-using DbContextDemo.API.API.Endpoints.Orders;
-using DbContextDemo.API.API.Endpoints.Addresses;
-using DbContextDemo.API.API.Endpoints.Shipments;
-using DbContextDemo.API.API.Endpoints.Customers;
-using DbContextDemo.API.API.Endpoints.Payments;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -23,7 +20,27 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Generic repo resolves to your concrete repo
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+builder.Services.AddScoped<IOrderService, OrderService>();
+
+
+builder.Services.AddEndpointsApiExplorer();   // <-- add this
+builder.Services.AddSwaggerGen(o =>
+{
+    o.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
+
+
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger(); 
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+    });
+}
 
 using (var scope = app.Services.CreateScope())
 {
@@ -34,11 +51,6 @@ using (var scope = app.Services.CreateScope())
 #endif
 }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
 
 app.UseHttpsRedirection();
 
@@ -49,7 +61,7 @@ api.MapOrdersEndpointGroup();
 api.MapAddressEndpointGroup();
 api.MapShipmentsEndpointGroup();
 api.MapCustomersEndpointGroup();
-api.MapPaymentsEndpointGroup();
+api.MapInvoicesEndpointGroup();
 
 app.Run();
 
