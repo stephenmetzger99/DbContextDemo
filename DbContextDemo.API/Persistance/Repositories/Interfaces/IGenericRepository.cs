@@ -1,6 +1,6 @@
 ﻿using DbContextDemo.API.Persistance.Models.Base;
 
-namespace DbContextDemo.Persistance;
+namespace DbContextDemo.API.Persistance.Repositories.Implementations;
 
 public interface IGenericRepository<T> where T : BaseEntity
 {
@@ -11,4 +11,5 @@ public interface IGenericRepository<T> where T : BaseEntity
     void Update(T entity);
     void Delete(T entity);
     Task SaveChangesAsync();
+    string GetDbContextLogs();
 }

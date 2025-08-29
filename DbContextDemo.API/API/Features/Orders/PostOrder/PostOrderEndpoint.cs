@@ -1,6 +1,5 @@
 ﻿using DbContextDemo.API.API.Features.Orders.PostOrder;
 using DbContextDemo.API.API.Services;
-using DbContextDemo.Persistance;
 
 namespace DbContextDemo.API.API.Endpoints.Orders.POST;
 
@@ -10,11 +9,11 @@ public static class PostOrderEndpoint
     {
         builder.MapPost("/", async (PostOrderRequest order, IOrderService service) =>
             {
-                var orderId = await service.PlaceOrderAsync(order);
-                return Results.Created($"/orders/{orderId}", order);
+                var orderResponse = await service.PlaceOrderAsync(order);
+                return Results.Ok(orderResponse);
             })
             .WithName("PostOrder")
-            .Produces<Guid>(StatusCodes.Status201Created)
+            .Produces<PostOrderResponse>(StatusCodes.Status200OK)
             .WithOpenApi();
         return builder;
     }

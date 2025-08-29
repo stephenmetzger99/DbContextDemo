@@ -1,9 +1,9 @@
 ﻿using DbContextDemo.API.API.Features.Orders.PostOrder;
-using DbContextDemo.Persistance;
+using DbContextDemo.API.Persistance.Repositories.Implementations;
 
 namespace DbContextDemo.API.API.Services;
 
-public class OrderService : IOrderService
+public sealed class OrderService : IOrderService
 {
     private readonly IGenericRepository<Order> orderRepository;
     private readonly IGenericRepository<Customer> customerRepository;
@@ -32,7 +32,7 @@ public class OrderService : IOrderService
     }
 
     private const decimal TAX = 0.06M;
-    public async Task<Guid> PlaceOrderAsync(PostOrderRequest req, CancellationToken ct = default)
+    public async Task<PostOrderResponse> PlaceOrderAsync(PostOrderRequest req, CancellationToken ct = default)
     {
         var custId = req.CustomerId;
 
@@ -80,7 +80,9 @@ public class OrderService : IOrderService
             OrderId = newOrder.Id,
             CustomerId = customer.Id,
             Status = InvoiceStatuses.Unpaid.Status,
-            Amount = total
+            Amount = total,
+            InvoiceDt = DateTime.UtcNow
+
         });
 
 
@@ -94,6 +96,6 @@ public class OrderService : IOrderService
 
         await orderRepository.SaveChangesAsync();
 
-        return newOrder.Id;
+        return new PostOrderResponse(newOrder.Id, orderRepository.GetDbContextLogs());
     }
 }

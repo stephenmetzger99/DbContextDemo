@@ -1,5 +1,4 @@
-﻿using DbContextDemo.Persistance;
-using DbContextDemo.Persistance.Models;
+﻿using DbContextDemo.API.Persistance.Repositories.Implementations;
 
 namespace DbContextDemo.API.API.Features.Addresses.GetAddresses;
 

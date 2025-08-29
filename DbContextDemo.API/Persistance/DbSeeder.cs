@@ -16,11 +16,22 @@ public static class DbSeeder
         if (!await context.Set<Address>().AnyAsync(ct))
         {
             await context.Set<Address>().AddRangeAsync(AddressSeedData.GetSeedAddresses(), ct);
+            await context.SaveChangesAsync(ct); 
         }
 
         if (!await context.Set<Customer>().AnyAsync(ct))
         {
-            await context.Set<Customer>().AddRangeAsync(CustomerSeedData.GetSeedCustomers(), ct);
+            IList<Address> addresses = await context.Set<Address>().ToListAsync();
+
+            foreach (var cust in CustomerSeedData.GetSeedCustomers())
+            {
+                var random = new Random();
+                ;
+                var randomAddressId = addresses[random.Next(addresses.Count)].Id;
+                cust.AddressId = randomAddressId;
+                await context.Set<Customer>().AddAsync(cust, ct);
+
+            }
         }
 
         if (!await context.Set<Product>().AnyAsync(ct))

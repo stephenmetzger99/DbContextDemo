@@ -4,5 +4,5 @@ namespace DbContextDemo.API.API.Services;
 
 public interface IOrderService
 {
-    Task<Guid> PlaceOrderAsync(PostOrderRequest order, CancellationToken ct = default);
+    Task<PostOrderResponse> PlaceOrderAsync(PostOrderRequest order, CancellationToken ct = default);
 }

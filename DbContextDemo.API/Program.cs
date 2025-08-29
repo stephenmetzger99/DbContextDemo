@@ -5,6 +5,8 @@ using DbContextDemo.API.API.Endpoints.Payments;
 using DbContextDemo.API.API.Endpoints.Products;
 using DbContextDemo.API.API.Endpoints.Shipments;
 using DbContextDemo.API.API.Services;
+using DbContextDemo.API.Persistance.Repositories.Implementations;
+using DbContextDemo.API.Persistance.Repositories.Interfaces;
 using DbContextDemo.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -14,9 +16,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")),
+    contextLifetime: ServiceLifetime.Scoped,
+    optionsLifetime: ServiceLifetime.Singleton);
+
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 
 // Generic repo resolves to your concrete repo
@@ -62,8 +69,8 @@ var api = app.MapGroup("/api/v1/");
 api.MapProductsEndpointGroup();
 api.MapOrdersEndpointGroup();
 api.MapAddressEndpointGroup();
-api.MapShipmentsEndpointGroup();
 api.MapCustomersEndpointGroup();
+api.MapShipmentsEndpointGroup();
 api.MapInvoicesEndpointGroup();
 
 app.Run();

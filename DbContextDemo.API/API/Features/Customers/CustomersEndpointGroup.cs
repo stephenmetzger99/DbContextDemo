@@ -1,4 +1,6 @@
-﻿namespace DbContextDemo.API.API.Endpoints.Customers;
+﻿using DbContextDemo.API.API.Features.Customers.GetCustomers;
+
+namespace DbContextDemo.API.API.Endpoints.Customers;
 
 public static class CustomersEndpointGroup
 {
@@ -8,6 +10,7 @@ public static class CustomersEndpointGroup
             .WithTags("Customers")
             .WithOpenApi();
 
+        customers.MapGetCustomersEndpoint();
         return builder;
     }
 }

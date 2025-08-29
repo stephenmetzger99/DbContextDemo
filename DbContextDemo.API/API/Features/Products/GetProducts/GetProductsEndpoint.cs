@@ -1,4 +1,4 @@
-﻿using DbContextDemo.Persistance;
+﻿using DbContextDemo.API.Persistance.Repositories.Implementations;
 
 namespace DbContextDemo.API.API.Endpoints.Products.GET;
 
