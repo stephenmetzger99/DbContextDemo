@@ -1,0 +1,34 @@
+﻿using DbContextDemo.API.Persistance.SeedData;
+using DbContextDemo.Persistance.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace DbContextDemo.Persistance.SeedData;
+
+public static class DbSeeder
+{
+    public static async Task SeedAsync(AppDbContext context, CancellationToken ct = default)
+    {
+        // Ensure DB is up to date first (optional if you do this in Program.cs)
+        // await context.Database.MigrateAsync(ct);
+
+        using var tx = await context.Database.BeginTransactionAsync(ct);
+
+        if (!await context.Set<Address>().AnyAsync(ct))
+        {
+            await context.Set<Address>().AddRangeAsync(AddressSeedData.GetSeedAddresses(), ct);
+        }
+
+        if (!await context.Set<Customer>().AnyAsync(ct))
+        {
+            await context.Set<Customer>().AddRangeAsync(CustomerSeedData.GetSeedCustomers(), ct);
+        }
+
+        if (!await context.Set<Product>().AnyAsync(ct))
+        {
+            await context.Set<Product>().AddRangeAsync(ProductSeedData.GetSeedProducts(), ct);
+        }
+
+        await context.SaveChangesAsync(ct);
+        await tx.CommitAsync(ct);
+    }
+}
