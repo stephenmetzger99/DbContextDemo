@@ -20,7 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     contextLifetime: ServiceLifetime.Scoped,
     optionsLifetime: ServiceLifetime.Singleton);
 
-builder.Services.AddDbContextFactory<AppDbContext>(options =>
+builder.Services.AddPooledDbContextFactory<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -29,8 +29,10 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
 // Generic repo resolves to your concrete repo
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IUsesDbContextFactoryRepository<>), typeof(UsesDbContextFactoryRepository<>));
+builder.Services.AddScoped(typeof(IUsesAmbientDbContextRepository<>), typeof(UsesAmbientDbContextRepository<>));
 
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<OrderServiceB>();
 
 
 builder.Services.AddEndpointsApiExplorer();   // <-- add this
