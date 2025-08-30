@@ -6,7 +6,8 @@ This project does not aim to be a perfect reference architecture.
 
 Certain tradeoffs were made for purposes of sinplifying the demo. 
 
-For one, the whole backend is one project file. 
+For one, the whole backend is one project. 
+Layers were simplified and broken up into folders.
 
 It is broken into
 * Api Layer
@@ -14,7 +15,7 @@ It is broken into
   There is only one service, which plays a central role to this demo. 
   Most of the endpoints bypass the service layer, except the POST /orders endpoint
 * Peristance
-  Most of the work was spent here
+  Most of the work was done here
   There are multiple Repos that use dbcontext differently.
    
 
