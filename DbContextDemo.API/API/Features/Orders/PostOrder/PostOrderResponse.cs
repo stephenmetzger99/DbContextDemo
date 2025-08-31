@@ -1,3 +1,3 @@
 ﻿namespace DbContextDemo.API.API.Features.Orders.PostOrder;
 
-public sealed record PostOrderResponse(Guid Id, string logs);
+public sealed record PostOrderResponse(Guid Id);

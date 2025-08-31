@@ -9,7 +9,6 @@ namespace DbContextDemo.Persistance;
 public class AppDbContext : DbContext
 {
     private readonly ILogger<AppDbContext> _logger;
-    public StringBuilder LogStringBuilder { get; private set; } = new();
 
     [ActivatorUtilitiesConstructor]
     public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -25,14 +24,12 @@ public class AppDbContext : DbContext
     {
         _logger = logger;
         _logger.LogInformation("AppDbContext constructed: {Id}", ContextId.InstanceId);
-        LogStringBuilder.AppendLine($"AppDbContext constructed: {ContextId.InstanceId}");
 
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken ct = default)
     {
         _logger.LogInformation("AppDbContext save changes async: {Id}", ContextId.InstanceId);
-        LogStringBuilder.AppendLine($"AppDbContext save changes async: {ContextId.InstanceId}");
 
         return await base.SaveChangesAsync(ct);
     }
@@ -40,14 +37,12 @@ public class AppDbContext : DbContext
     public override async ValueTask DisposeAsync()
     {
         _logger.LogInformation("AppDbContext disposing async: {Id}", ContextId.InstanceId);
-        LogStringBuilder.AppendLine($"AppDbContext disposing async: {ContextId.InstanceId}");
         await base.DisposeAsync();
     }
 
     public override void Dispose()
     {
         _logger.LogInformation("AppDbContext disposing sync: {Id}", ContextId.InstanceId);
-        LogStringBuilder.AppendLine($"AppDbContext disposing SYNC: {ContextId.InstanceId}");
 
         base.Dispose();
     }

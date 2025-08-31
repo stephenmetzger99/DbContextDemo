@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 namespace DbContextDemo.API.Persistance.Repositories.Implementations
 {
     /// <summary>
-    /// Ambient-aware BaseRepository:
+    /// Ambient-aware repository:
     /// - If an ambient DbContext exists (RepositoryScope), participate in it and DO NOT SaveChanges here.
     /// - Otherwise, create a context + transaction, SaveChanges, and commit locally (backward compatible).
     /// </summary>
-    internal class BaseRepository<TType>(IDbContextFactory<AppDbContext> dbContextFactory) : IBaseRepository<TType>
+    internal class UsesAmbientDbContextRepository<TType>(IDbContextFactory<AppDbContext> dbContextFactory) : IUsesAmbientDbContextRepository<TType>
         where TType : BaseEntity
     {
         protected readonly IDbContextFactory<AppDbContext> DbContextFactory =
@@ -139,6 +139,5 @@ namespace DbContextDemo.API.Persistance.Repositories.Implementations
                 return Task.CompletedTask;
             }, ct);
 
-        // History helpers from your original file can be routed via ExecuteReadAsync similarly...
     }
 }

@@ -96,6 +96,6 @@ public sealed class OrderService : IOrderService
 
         await orderRepository.SaveChangesAsync();
 
-        return new PostOrderResponse(newOrder.Id, orderRepository.GetDbContextLogs());
+        return new PostOrderResponse(newOrder.Id);
     }
 }
