@@ -1,6 +1,6 @@
 ﻿using DbContextDemo.API.API.Features.Orders.PostOrder;
 
-namespace DbContextDemo.API.API.Services;
+namespace DbContextDemo.API.Application.Services.Interfaces;
 
 public interface IOrderService
 {

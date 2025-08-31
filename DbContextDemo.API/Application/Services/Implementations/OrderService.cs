@@ -1,8 +1,9 @@
 ﻿using DbContextDemo.API.API.Features.Orders.PostOrder;
+using DbContextDemo.API.Application.Services.Interfaces;
 using DbContextDemo.API.Domain;
 using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 
-namespace DbContextDemo.API.API.Services;
+namespace DbContextDemo.API.Application.Services.Implementations;
 
 public sealed class OrderService : IOrderService
 {

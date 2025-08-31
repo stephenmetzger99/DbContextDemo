@@ -1,10 +1,11 @@
 using DbContextDemo.API.API.Features.Orders.PostOrder;
+using DbContextDemo.API.Application.Services.Interfaces;
 using DbContextDemo.API.Domain;
 using DbContextDemo.API.Infrastructure;
 using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbContextDemo.API.API.Services;
+namespace DbContextDemo.API.Application.Services.Implementations;
 
 public sealed class OrderServiceB : IOrderService
 {
@@ -64,7 +65,7 @@ public sealed class OrderServiceB : IOrderService
                 }
             }
 
-            total *= (1.00M + TAX);
+            total *= 1.00M + TAX;
 
             var newOrder = new Order
             {
