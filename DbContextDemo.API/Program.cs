@@ -32,7 +32,6 @@ builder.Services.AddScoped(typeof(IUsesDbContextFactoryRepository<>), typeof(Use
 builder.Services.AddScoped(typeof(IUsesAmbientDbContextRepository<>), typeof(UsesAmbientDbContextRepository<>));
 
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<OrderServiceB>();
 
 
 builder.Services.AddEndpointsApiExplorer();   // <-- add this
