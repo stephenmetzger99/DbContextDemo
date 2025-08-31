@@ -16,7 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")),
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .LogTo(Console.WriteLine,
+           new[] { DbLoggerCategory.Database.Transaction.Name },
+           LogLevel.Information),
     contextLifetime: ServiceLifetime.Scoped,
     optionsLifetime: ServiceLifetime.Singleton);
 

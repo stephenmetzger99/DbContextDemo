@@ -29,6 +29,4 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         await _context.SaveChangesAsync();
     }
-
-    public string GetDbContextLogs() => _context.LogStringBuilder.ToString();
 }

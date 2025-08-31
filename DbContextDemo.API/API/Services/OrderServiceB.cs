@@ -1,6 +1,4 @@
-using System.Linq;
 using DbContextDemo.API.API.Features.Orders.PostOrder;
-using DbContextDemo.API.Persistance.Models;
 using DbContextDemo.API.Persistance.Repositories.Implementations;
 using DbContextDemo.Persistance;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +73,7 @@ public sealed class OrderServiceB : IOrderService
             };
 
             await orderRepository.AddAsync(newOrder, ct).ConfigureAwait(false);
+
             await invoiceRepository.AddAsync(new Invoice
             {
                 OrderId = newOrder.Id,
@@ -91,7 +90,7 @@ public sealed class OrderServiceB : IOrderService
                 Status = ShipmentStatuses.PendingPayment.Status
             }, ct).ConfigureAwait(false);
 
-            response = new PostOrderResponse(newOrder.Id, string.Empty);
+            response = new PostOrderResponse(newOrder.Id);
         }, ct).ConfigureAwait(false);
 
         return response;

@@ -139,6 +139,5 @@ namespace DbContextDemo.API.Persistance.Repositories.Implementations
                 return Task.CompletedTask;
             }, ct);
 
-        // History helpers from your original file can be routed via ExecuteReadAsync similarly...
     }
 }
