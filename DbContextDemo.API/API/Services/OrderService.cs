@@ -1,6 +1,6 @@
 ﻿using DbContextDemo.API.API.Features.Orders.PostOrder;
 using DbContextDemo.API.Domain;
-using DbContextDemo.API.Persistance.Repositories.Interfaces;
+using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 
 namespace DbContextDemo.API.API.Services;
 

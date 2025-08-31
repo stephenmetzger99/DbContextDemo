@@ -1,4 +1,4 @@
-﻿namespace DbContextDemo.API.Persistance.SeedData;
+﻿namespace DbContextDemo.API.Infrastructure.SeedData;
 
 using DbContextDemo.API.Domain;
 using System.Collections.Generic;

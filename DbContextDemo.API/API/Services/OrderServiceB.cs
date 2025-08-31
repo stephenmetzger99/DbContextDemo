@@ -1,7 +1,7 @@
 using DbContextDemo.API.API.Features.Orders.PostOrder;
 using DbContextDemo.API.Domain;
-using DbContextDemo.API.Persistance;
-using DbContextDemo.API.Persistance.Repositories.Interfaces;
+using DbContextDemo.API.Infrastructure;
+using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DbContextDemo.API.API.Services;

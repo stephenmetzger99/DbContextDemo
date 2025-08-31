@@ -1,6 +1,6 @@
 ﻿using DbContextDemo.API.Domain.Base;
 
-namespace DbContextDemo.API.Persistance.Repositories.Interfaces;
+namespace DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 
 public interface IGenericRepository<T> where T : BaseEntity
 {

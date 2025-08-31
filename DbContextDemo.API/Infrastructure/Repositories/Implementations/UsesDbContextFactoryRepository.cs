@@ -1,9 +1,10 @@
 using DbContextDemo.API.Domain.Base;
-using DbContextDemo.API.Persistance.Repositories.Interfaces;
+using DbContextDemo.API.Infrastructure;
+using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace DbContextDemo.API.Persistance.Repositories.Implementations;
+namespace DbContextDemo.API.Infrastructure.Repositories.Implementations;
 
 public class UsesDbContextFactoryRepository<T> : IUsesDbContextFactoryRepository<T> where T : BaseEntity
 {

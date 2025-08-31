@@ -1,10 +1,11 @@
 using System.Linq.Expressions;
 using DbContextDemo.API.Domain.Base;
-using DbContextDemo.API.Persistance.Repositories.Interfaces;
+using DbContextDemo.API.Infrastructure;
+using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace DbContextDemo.API.Persistance.Repositories.Implementations
+namespace DbContextDemo.API.Infrastructure.Repositories.Implementations
 {
     /// <summary>
     /// Ambient-aware repository:
@@ -76,7 +77,7 @@ namespace DbContextDemo.API.Persistance.Repositories.Implementations
                 if (includes is not null && includes.Count != 0)
                     foreach (var include in includes) query = query.Include(include);
                 return await query.Where(entity => ids.Contains(entity.Id)).ToListAsync(ct).ConfigureAwait(false);
-            }, ct).ContinueWith(t => (IEnumerable<TType>)t.Result!, ct);
+            }, ct).ContinueWith(t => t.Result!, ct);
 
         // Temporal reads
         public virtual Task<TType?> GetRecordHistoryAsOfDateAsync(Guid Id, DateTime dateTime, CancellationToken ct = default)

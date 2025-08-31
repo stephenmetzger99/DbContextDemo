@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Primitives;
 using System.Text;
 
-namespace DbContextDemo.API.Persistance;
+namespace DbContextDemo.API.Infrastructure;
 
 public class AppDbContext : DbContext
 {

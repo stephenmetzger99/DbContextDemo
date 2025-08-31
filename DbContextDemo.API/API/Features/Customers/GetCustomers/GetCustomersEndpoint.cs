@@ -1,5 +1,5 @@
 ﻿using DbContextDemo.API.Domain;
-using DbContextDemo.API.Persistance.Repositories.Interfaces;
+using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 
 namespace DbContextDemo.API.API.Features.Customers.GetCustomers;
 
