@@ -1,1 +1,1 @@
-﻿global using DbContextDemo.Persistance.Models;
+﻿global using DbContextDemo.API.Domain;
