@@ -82,7 +82,7 @@ namespace DbContextDemo.API.Infrastructure.Repositories.Implementations
         // Temporal reads
         public virtual Task<TType?> GetRecordHistoryAsOfDateAsync(Guid Id, DateTime dateTime, CancellationToken ct = default)
             => ExecuteReadAsync(async db =>
-                await db.Set<Type>().FindAsync(Id) as TType, ct); // Placeholder; user may replace with their temporal logic
+                await db.Set<Type>().FindAsync(Id).ConfigureAwait(false) as TType, ct); // Placeholder; user may replace with their temporal logic
 
         public virtual Task<TType?> GetRecordBetweenDatesAsync(Guid Id, DateTime start, DateTime end, CancellationToken ct = default)
             => ExecuteReadAsync(async db => await db.Set<TType>().TemporalBetween(start, end).IgnoreAutoIncludes().FirstOrDefaultAsync(x => x.Id == Id, ct).ConfigureAwait(false), ct);
