@@ -1,4 +1,5 @@
-﻿using DbContextDemo.API.Persistance.Repositories.Implementations;
+﻿using DbContextDemo.API.Domain;
+using DbContextDemo.API.Persistance.Repositories.Interfaces;
 
 namespace DbContextDemo.API.API.Features.Customers.GetCustomers;
 

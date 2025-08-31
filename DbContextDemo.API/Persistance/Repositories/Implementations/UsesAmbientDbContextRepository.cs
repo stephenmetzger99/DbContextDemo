@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
-using DbContextDemo.API.Persistance.Models.Base;
-using DbContextDemo.Persistance;
+using DbContextDemo.API.Domain.Base;
+using DbContextDemo.API.Persistance.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 

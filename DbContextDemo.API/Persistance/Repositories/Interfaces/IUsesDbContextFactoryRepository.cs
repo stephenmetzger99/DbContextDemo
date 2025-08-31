@@ -1,7 +1,6 @@
-using DbContextDemo.API.Persistance.Models.Base;
-using DbContextDemo.Persistance;
+using DbContextDemo.API.Domain.Base;
 
-namespace DbContextDemo.API.Persistance.Repositories.Implementations;
+namespace DbContextDemo.API.Persistance.Repositories.Interfaces;
 
 public interface IUsesDbContextFactoryRepository<T> where T : BaseEntity
 {

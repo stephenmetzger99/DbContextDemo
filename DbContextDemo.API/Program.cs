@@ -1,13 +1,13 @@
-using DbContextDemo.API.API.Endpoints.Addresses;
-using DbContextDemo.API.API.Endpoints.Customers;
-using DbContextDemo.API.API.Endpoints.Orders;
-using DbContextDemo.API.API.Endpoints.Payments;
-using DbContextDemo.API.API.Endpoints.Products;
-using DbContextDemo.API.API.Endpoints.Shipments;
+using DbContextDemo.API.API.Features.Addresses;
+using DbContextDemo.API.API.Features.Customers;
+using DbContextDemo.API.API.Features.Invoices;
+using DbContextDemo.API.API.Features.Orders;
+using DbContextDemo.API.API.Features.Products;
+using DbContextDemo.API.API.Features.Shipments;
 using DbContextDemo.API.API.Services;
+using DbContextDemo.API.Persistance;
 using DbContextDemo.API.Persistance.Repositories.Implementations;
 using DbContextDemo.API.Persistance.Repositories.Interfaces;
-using DbContextDemo.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -61,7 +61,7 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.MigrateAsync();               // make sure schema exists
 #if DEBUG
-    await DbContextDemo.Persistance.SeedData.DbSeeder.SeedAsync(db);
+    await DbSeeder.SeedAsync(db);
 #endif
 }
 

@@ -1,7 +1,7 @@
-﻿using DbContextDemo.API.Persistance.Repositories.Implementations;
-using DbContextDemo.Persistance.Models;
+﻿using DbContextDemo.API.Domain;
+using DbContextDemo.API.Persistance.Repositories.Interfaces;
 
-namespace DbContextDemo.API.API.Endpoints.Orders.GET;
+namespace DbContextDemo.API.API.Features.Orders.GetOrder;
 
 public static class GetOrderEndpoint
 {

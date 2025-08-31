@@ -1,4 +1,4 @@
-﻿namespace DbContextDemo.API.Persistance.Models.Base;
+﻿namespace DbContextDemo.API.Domain.Base;
 
 public class BaseEntity
 {

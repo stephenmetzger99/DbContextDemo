@@ -1,6 +1,6 @@
 ﻿namespace DbContextDemo.API.Persistance.SeedData;
 
-using DbContextDemo.Persistance.Models;
+using DbContextDemo.API.Domain;
 using System.Collections.Generic;
 
 public static class CustomerSeedData

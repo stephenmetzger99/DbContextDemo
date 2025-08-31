@@ -1,10 +1,11 @@
-﻿using DbContextDemo.API.Persistance.Models.Base;
+﻿using DbContextDemo.API.Domain;
+using DbContextDemo.API.Domain.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Primitives;
 using System.Text;
 
-namespace DbContextDemo.Persistance;
+namespace DbContextDemo.API.Persistance;
 
 public class AppDbContext : DbContext
 {

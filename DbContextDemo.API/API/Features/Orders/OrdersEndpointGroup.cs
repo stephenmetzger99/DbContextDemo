@@ -1,7 +1,7 @@
-﻿using DbContextDemo.API.API.Endpoints.Orders.GET;
-using DbContextDemo.API.API.Endpoints.Orders.POST;
+﻿using DbContextDemo.API.API.Features.Orders.GetOrder;
+using DbContextDemo.API.API.Features.Orders.PostOrder;
 
-namespace DbContextDemo.API.API.Endpoints.Orders;
+namespace DbContextDemo.API.API.Features.Orders;
 
 public static class OrdersEndpointGroup
 {

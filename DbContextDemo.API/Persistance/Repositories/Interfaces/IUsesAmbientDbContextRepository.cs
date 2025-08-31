@@ -1,9 +1,8 @@
 using System.Linq.Expressions;
-using DbContextDemo.API.Persistance.Models.Base;
-using DbContextDemo.Persistance;
+using DbContextDemo.API.Domain.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbContextDemo.API.Persistance.Repositories.Implementations;
+namespace DbContextDemo.API.Persistance.Repositories.Interfaces;
 
 public interface IUsesAmbientDbContextRepository<TType> where TType : BaseEntity
 {

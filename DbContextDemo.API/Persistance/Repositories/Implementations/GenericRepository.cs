@@ -1,10 +1,9 @@
-﻿using DbContextDemo.API.Persistance.Models.Base;
-using DbContextDemo.API.Persistance.Repositories.Implementations;
-using DbContextDemo.Persistance;
+﻿using DbContextDemo.API.Domain.Base;
+using DbContextDemo.API.Persistance.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace DbContextDemo.API.Persistance.Repositories.Interfaces;
+namespace DbContextDemo.API.Persistance.Repositories.Implementations;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {

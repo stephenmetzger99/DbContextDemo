@@ -1,7 +1,6 @@
-﻿using DbContextDemo.API.API.Features.Orders.PostOrder;
-using DbContextDemo.API.API.Services;
+﻿using DbContextDemo.API.API.Services;
 
-namespace DbContextDemo.API.API.Endpoints.Orders.POST;
+namespace DbContextDemo.API.API.Features.Orders.PostOrder;
 
 public static class PostOrderEndpoint
 {

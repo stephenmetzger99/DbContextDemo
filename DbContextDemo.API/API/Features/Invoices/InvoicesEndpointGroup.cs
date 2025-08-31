@@ -1,4 +1,4 @@
-﻿namespace DbContextDemo.API.API.Endpoints.Payments;
+﻿namespace DbContextDemo.API.API.Features.Invoices;
 
 public static class InvoicesEndpointGroup
 {

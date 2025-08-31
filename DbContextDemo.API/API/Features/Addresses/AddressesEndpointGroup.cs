@@ -1,7 +1,7 @@
-﻿using DbContextDemo.API.API.Endpoints.Addresses.GET;
+﻿using DbContextDemo.API.API.Features.Addresses.GetAddress;
 using DbContextDemo.API.API.Features.Addresses.GetAddresses;
 
-namespace DbContextDemo.API.API.Endpoints.Addresses;
+namespace DbContextDemo.API.API.Features.Addresses;
 
 public static class AddressesEndpointGroup
 {

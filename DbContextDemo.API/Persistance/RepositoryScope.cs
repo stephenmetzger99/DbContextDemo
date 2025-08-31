@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace DbContextDemo.Persistance
+namespace DbContextDemo.API.Persistance
 {
     /// <summary>
     /// Ambient Unit of Work helper.

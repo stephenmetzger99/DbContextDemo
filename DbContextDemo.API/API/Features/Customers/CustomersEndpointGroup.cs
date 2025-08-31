@@ -1,6 +1,6 @@
 ﻿using DbContextDemo.API.API.Features.Customers.GetCustomers;
 
-namespace DbContextDemo.API.API.Endpoints.Customers;
+namespace DbContextDemo.API.API.Features.Customers;
 
 public static class CustomersEndpointGroup
 {

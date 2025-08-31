@@ -1,6 +1,6 @@
-﻿using DbContextDemo.API.API.Endpoints.Products.GET;
+﻿using DbContextDemo.API.API.Features.Products.GetProducts;
 
-namespace DbContextDemo.API.API.Endpoints.Products;
+namespace DbContextDemo.API.API.Features.Products;
 
 public static class ProductsEndpointGroup
 {

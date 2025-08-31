@@ -1,6 +1,6 @@
-﻿using DbContextDemo.API.Persistance.Models.Base;
+﻿using DbContextDemo.API.Domain.Base;
 
-namespace DbContextDemo.Persistance.Models;
+namespace DbContextDemo.API.Domain;
 
 public sealed class OrderItem : BaseEntity
 {

@@ -1,8 +1,8 @@
-﻿using DbContextDemo.API.Persistance.SeedData;
-using DbContextDemo.Persistance.Models;
+﻿using DbContextDemo.API.Domain;
+using DbContextDemo.API.Persistance.SeedData;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbContextDemo.Persistance.SeedData;
+namespace DbContextDemo.API.Persistance;
 
 public static class DbSeeder
 {

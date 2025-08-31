@@ -1,6 +1,6 @@
-﻿using DbContextDemo.API.Persistance.Models.Base;
+﻿using DbContextDemo.API.Domain.Base;
 
-namespace DbContextDemo.API.Persistance.Repositories.Implementations;
+namespace DbContextDemo.API.Persistance.Repositories.Interfaces;
 
 public interface IGenericRepository<T> where T : BaseEntity
 {

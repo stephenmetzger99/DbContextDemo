@@ -1,4 +1,4 @@
-﻿namespace DbContextDemo.API.API.Endpoints.Shipments;
+﻿namespace DbContextDemo.API.API.Features.Shipments;
 
 public static class ShipmentsEndpointGroup
 {

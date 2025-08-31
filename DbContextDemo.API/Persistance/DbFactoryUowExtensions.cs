@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace DbContextDemo.Persistance;
+namespace DbContextDemo.API.Persistance;
 
 public static class DbFactoryUowExtensions
 {

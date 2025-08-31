@@ -1,7 +1,7 @@
-﻿using DbContextDemo.API.Persistance.Repositories.Implementations;
-using DbContextDemo.Persistance.Models;
+﻿using DbContextDemo.API.Domain;
+using DbContextDemo.API.Persistance.Repositories.Interfaces;
 
-namespace DbContextDemo.API.API.Endpoints.Addresses.GET;
+namespace DbContextDemo.API.API.Features.Addresses.GetAddress;
 
 public static class GetAddressEndpoint
 {
