@@ -8,47 +8,48 @@ using System.Linq;
 
 namespace DbContextDemo.API.Application.Services.Implementations;
 
-public sealed class OrderServiceB : IOrderService
+public sealed class OrderServiceC : IOrderService
 {
-    private readonly IUsesDbContextFactoryRepository<Order> orderRepository;
-    private readonly IUsesDbContextFactoryRepository<Customer> customerRepository;
-    private readonly IUsesDbContextFactoryRepository<Product> productRepository;
-    private readonly IUsesDbContextFactoryRepository<Invoice> invoiceRepository;
-    private readonly IUsesDbContextFactoryRepository<Shipment> shipmentRepository;
-    private readonly ILogger<OrderServiceB> logger;
+    private readonly IUsesAmbientDbContextRepository<Order> orderRepository;
+    private readonly IUsesAmbientDbContextRepository<Customer> customerRepository;
+    private readonly IUsesAmbientDbContextRepository<Product> productRepository;
+    private readonly IUsesAmbientDbContextRepository<Invoice> invoiceRepository;
+    private readonly IUsesAmbientDbContextRepository<Shipment> shipmentRepository;
+    private readonly IDbContextFactory<AppDbContext> dbFactory;
+    private readonly ILogger<OrderServiceC> logger;
     private const decimal TAX = 0.06M;
 
-    public OrderServiceB(
-        IUsesDbContextFactoryRepository<Order> orderRepository,
-        IUsesDbContextFactoryRepository<Customer> customerRepository,
-        IUsesDbContextFactoryRepository<Product> productRepository,
-        IUsesDbContextFactoryRepository<Invoice> invoiceRepository,
-        IUsesDbContextFactoryRepository<Shipment> shipmentRepository,
-        ILogger<OrderServiceB> logger)
+    public OrderServiceC(
+        IUsesAmbientDbContextRepository<Order> orderRepository,
+        IUsesAmbientDbContextRepository<Customer> customerRepository,
+        IUsesAmbientDbContextRepository<Product> productRepository,
+        IUsesAmbientDbContextRepository<Invoice> invoiceRepository,
+        IUsesAmbientDbContextRepository<Shipment> shipmentRepository,
+        IDbContextFactory<AppDbContext> dbFactory,
+        ILogger<OrderServiceC> logger)
     {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
         this.invoiceRepository = invoiceRepository;
         this.shipmentRepository = shipmentRepository;
+        this.dbFactory = dbFactory;
         this.logger = logger;
 
         var id = Guid.NewGuid();
-        logger.LogInformation("New Order Service B {id}", id);
+        logger.LogInformation("New Order Service C {id}", id);
     }
 
     public async Task<PostOrderResponse> PlaceOrderAsync(PostOrderRequest req, CancellationToken ct = default)
     {
-        await using var dbContext = await orderRepository.GetDbContextAsync().ConfigureAwait(false);
-        await using var transaction = await dbContext.Database.BeginTransactionAsync(ct).ConfigureAwait(false);
-
-        try
+        PostOrderResponse response = default!;
+        await dbFactory.InUowAsync(async () =>
         {
-            var customer = await dbContext.Set<Customer>().FindAsync(new object?[] { req.CustomerId }, ct).ConfigureAwait(false);
+            var customer = await customerRepository.GetByIdAsync(req.CustomerId, ct).ConfigureAwait(false);
             if (customer is null) throw new InvalidOperationException("Customer does not exist");
 
-            var productIds = req.OrderItems.Select(oi => oi.ProductId).ToList();
-            var products = await dbContext.Set<Product>().Where(p => productIds.Contains(p.Id)).ToListAsync(ct).ConfigureAwait(false);
+            var productIds = req.OrderItems.Select(oi => oi.ProductId);
+            var products = await productRepository.GetByIdsAsync(productIds, ct: ct).ConfigureAwait(false);
             if (products is null || !products.Any()) throw new InvalidOperationException("No Products were found");
 
             decimal total = 0.00M;
@@ -74,7 +75,7 @@ public sealed class OrderServiceB : IOrderService
                 OrderItems = req.OrderItems.Select(x => new OrderItem { ProductId = x.ProductId, Quantity = x.Quantity }).ToList(),
             };
 
-            await orderRepository.AddAsync(newOrder, dbContext).ConfigureAwait(false);
+            await orderRepository.AddAsync(newOrder, ct).ConfigureAwait(false);
 
             await invoiceRepository.AddAsync(new Invoice
             {
@@ -83,24 +84,18 @@ public sealed class OrderServiceB : IOrderService
                 Status = InvoiceStatuses.Unpaid.Status,
                 Amount = total,
                 InvoiceDt = DateTime.UtcNow
-            }, dbContext).ConfigureAwait(false);
+            }, ct).ConfigureAwait(false);
 
             await shipmentRepository.AddAsync(new Shipment
             {
                 OrderId = newOrder.Id,
                 AddressId = customer.AddressId,
                 Status = ShipmentStatuses.PendingPayment.Status
-            }, dbContext).ConfigureAwait(false);
+            }, ct).ConfigureAwait(false);
 
-            await transaction.CommitAsync(ct).ConfigureAwait(false);
+            response = new PostOrderResponse(newOrder.Id);
+        }, ct).ConfigureAwait(false);
 
-            return new PostOrderResponse(newOrder.Id);
-        }
-        catch
-        {
-            await transaction.RollbackAsync(ct).ConfigureAwait(false);
-            throw;
-        }
+        return response;
     }
 }
-

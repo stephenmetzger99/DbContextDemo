@@ -17,66 +17,66 @@ public class UsesDbContextFactoryRepository<T> : IUsesDbContextFactoryRepository
         _logger = logger;
     }
 
-    public Task<AppDbContext> GetDbContextAsync()
+    public async Task<AppDbContext> GetDbContextAsync()
     {
-        return _contextFactory.CreateDbContextAsync();
+        return await _contextFactory.CreateDbContextAsync().ConfigureAwait(false);
     }
 
     public async Task<T?> GetByIdAsync(Guid id)
     {
-        await using var dbContext = await _contextFactory.CreateDbContextAsync();
-        return await dbContext.Set<T>().FindAsync(id);
+        await using var dbContext = await _contextFactory.CreateDbContextAsync().ConfigureAwait(false);
+        return await dbContext.Set<T>().FindAsync(id).ConfigureAwait(false);
     }
 
     public async Task<IEnumerable<T>> GetByIdsAsync(IEnumerable<Guid> ids)
     {
-        await using var dbContext = await _contextFactory.CreateDbContextAsync();
-        return await dbContext.Set<T>().Where(e => ids.Contains(e.Id)).ToListAsync();
+        await using var dbContext = await _contextFactory.CreateDbContextAsync().ConfigureAwait(false);
+        return await dbContext.Set<T>().Where(e => ids.Contains(e.Id)).ToListAsync().ConfigureAwait(false);
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        await using var dbContext = await _contextFactory.CreateDbContextAsync();
-        return await dbContext.Set<T>().ToListAsync();
+        await using var dbContext = await _contextFactory.CreateDbContextAsync().ConfigureAwait(false);
+        return await dbContext.Set<T>().ToListAsync().ConfigureAwait(false);
     }
 
     public async Task AddAsync(T entity)
     {
-        await using var dbContext = await _contextFactory.CreateDbContextAsync();
-        await dbContext.Set<T>().AddAsync(entity);
-        await dbContext.SaveChangesAsync();
+        await using var dbContext = await _contextFactory.CreateDbContextAsync().ConfigureAwait(false);
+        await dbContext.Set<T>().AddAsync(entity).ConfigureAwait(false);
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     public async Task AddAsync(T entity, AppDbContext dbContext)
     {
-        await dbContext.Set<T>().AddAsync(entity);
-        await dbContext.SaveChangesAsync();
+        await dbContext.Set<T>().AddAsync(entity).ConfigureAwait(false);
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     public async Task UpdateAsync(T entity)
     {
-        await using var dbContext = await _contextFactory.CreateDbContextAsync();
+        await using var dbContext = await _contextFactory.CreateDbContextAsync().ConfigureAwait(false);
         dbContext.Set<T>().Update(entity);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     public async Task UpdateAsync(T entity, AppDbContext dbContext)
     {
         dbContext.Set<T>().Update(entity);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     public async Task DeleteAsync(T entity)
     {
-        await using var dbContext = await _contextFactory.CreateDbContextAsync();
+        await using var dbContext = await _contextFactory.CreateDbContextAsync().ConfigureAwait(false);
         dbContext.Set<T>().Remove(entity);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     public async Task DeleteAsync(T entity, AppDbContext dbContext)
     {
         dbContext.Set<T>().Remove(entity);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
 
