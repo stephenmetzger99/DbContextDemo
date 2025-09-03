@@ -24,8 +24,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     contextLifetime: ServiceLifetime.Scoped,
     optionsLifetime: ServiceLifetime.Singleton);
 
-builder.Services.AddPooledDbContextFactory<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContextFactory<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+    // Hook into EF’s own logging
+    options.LogTo(Console.WriteLine, LogLevel.Information);
+    // Or wire in ILoggerFactory from DI:
+    // var loggerFactory = builder.Services.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
+    // options.UseLoggerFactory(loggerFactory);
+});
+
 
 
 
@@ -35,7 +44,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped(typeof(IUsesDbContextFactoryRepository<>), typeof(UsesDbContextFactoryRepository<>));
 builder.Services.AddScoped(typeof(IUsesAmbientDbContextRepository<>), typeof(UsesAmbientDbContextRepository<>));
 
-builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderService, OrderServiceB>();
 
 
 builder.Services.AddEndpointsApiExplorer();   // <-- add this

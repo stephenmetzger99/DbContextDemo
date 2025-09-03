@@ -1,49 +1,35 @@
-﻿using DbContextDemo.API.Domain;
-using DbContextDemo.API.Domain.Base;
+﻿using DbContextDemo.API.Domain.Base;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Primitives;
-using System.Text;
+using System.Diagnostics;
 
 namespace DbContextDemo.API.Infrastructure;
 
 public class AppDbContext : DbContext
 {
-    private readonly ILogger<AppDbContext> _logger;
 
-    [ActivatorUtilitiesConstructor]
     public AppDbContext(DbContextOptions<AppDbContext> options)
-       : base(options)
-    {
-        // no logger available at design-time
-        _logger = NullLogger<AppDbContext>.Instance;
-
-    }
-
-    public AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbContext> logger)
         : base(options)
     {
-        _logger = logger;
-        _logger.LogInformation("AppDbContext constructed: {Id}", ContextId.InstanceId);
+        Debug.WriteLine($"AppDbContext constructed: {ContextId.InstanceId}");
 
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken ct = default)
     {
-        _logger.LogInformation("AppDbContext save changes async: {Id}", ContextId.InstanceId);
+        Debug.WriteLine($"AppDbContext save changes async: {ContextId.InstanceId}");
 
         return await base.SaveChangesAsync(ct);
     }
 
     public override async ValueTask DisposeAsync()
     {
-        _logger.LogInformation("AppDbContext disposing async: {Id}", ContextId.InstanceId);
+        Debug.WriteLine($"AppDbContext disposing async: {ContextId.InstanceId}");
         await base.DisposeAsync();
     }
 
     public override void Dispose()
     {
-        _logger.LogInformation("AppDbContext disposing sync: {Id}", ContextId.InstanceId);
+        Debug.WriteLine($"AppDbContext disposing sync: {ContextId.InstanceId}");
 
         base.Dispose();
     }
