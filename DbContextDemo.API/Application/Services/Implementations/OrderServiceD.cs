@@ -5,24 +5,24 @@ using DbContextDemo.API.Infrastructure.Repositories.Interfaces;
 
 namespace DbContextDemo.API.Application.Services.Implementations;
 /// <summary>
-/// Order Service A uses plain injection of scoped DbContexts
+/// <see cref="OrderServiceD"/> uses plain injection of scoped DbContexts
 /// </summary>
-public sealed class OrderServiceA : IOrderService
+public sealed class OrderServiceD : IOrderService
 {
     private readonly IGenericRepository<Order> orderRepository;
     private readonly IGenericRepository<Customer> customerRepository;
     private readonly IGenericRepository<Product> productRepository;
     private readonly IGenericRepository<Invoice> invoiceRepository;
     private readonly IGenericRepository<Shipment> shipmentRepository;
-    private readonly ILogger<OrderServiceA> logger;
+    private readonly ILogger<OrderServiceD> logger;
 
-    public OrderServiceA(
+    public OrderServiceD(
         IGenericRepository<Order> orderRepository,
         IGenericRepository<Customer> customerRepository,
         IGenericRepository<Product> productRepository,
         IGenericRepository<Invoice> invoiceRepository,
         IGenericRepository<Shipment> shipmentRepository,
-        ILogger<OrderServiceA> logger)
+        ILogger<OrderServiceD> logger)
     {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;

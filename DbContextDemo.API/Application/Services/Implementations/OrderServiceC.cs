@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace DbContextDemo.API.Application.Services.Implementations;
 
+/// <summary>
+/// <see cref="OrderServiceC"/> uses an ambient UoW to share DbContext
+/// </summary>
 public sealed class OrderServiceC : IOrderService
 {
     private readonly IUsesAmbientDbContextRepository<Order> orderRepository;

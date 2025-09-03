@@ -9,7 +9,7 @@ using System.Linq;
 namespace DbContextDemo.API.Application.Services.Implementations;
 
 /// <summary>
-/// order service b does context passing with a transaction
+/// <see cref="OrderServiceB"/> does context passing with a transaction
 /// </summary>
 public sealed class OrderServiceB : IOrderService
 {
