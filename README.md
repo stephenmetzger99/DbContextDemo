@@ -4,7 +4,7 @@ This project's goal is to illustrate how the dbcontext acts as a unit of work.
 
 This project does not aim to be a perfect reference architecture. 
 
-Certain tradeoffs were made for purposes of sinplifying the demo. 
+Certain tradeoffs were made for purposes of simplifying the demo. 
 
 For one, the whole backend is one project. 
 Layers were simplified and broken up into folders.
