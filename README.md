@@ -14,9 +14,10 @@ It is broken into
 * Service layer
   There is only one service, which plays a central role to this demo. 
   Most of the endpoints bypass the service layer, except the POST /orders endpoint
+* this is for sinplicity of the demo 
 * Peristance
   Most of the work was done here
   There are multiple Repos that use dbcontext differently.
    
 
-A standard generic repository is used. Generic repos arent ideal but they suffice for a quick demo. 
+A generic repository pattern was utilized for a quick demo. 
